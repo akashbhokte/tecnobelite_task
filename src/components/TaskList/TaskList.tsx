@@ -164,9 +164,6 @@ const TaskList = () => {
                     {task.status}
                   </span>
                 </div>
-                {/* <Link to={{ pathname: "/Form" }}>{li.name}</Link> */}
-
-                {/* <div onClick={() => handleDelete()}>Delete</div> */}
               </div>
             </div>
           );
