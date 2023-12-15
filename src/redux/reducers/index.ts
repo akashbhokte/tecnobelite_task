@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
     case "RESET_TASKS":
       return {
         ...state,
-        tasks: [], // Reset tasks to an empty array or your initial state
+        tasks: [],
       };
     case "TOGGLE_TASK_STATUS":
       return {

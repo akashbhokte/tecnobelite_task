@@ -23,7 +23,6 @@ const TaskForm = () => {
   }, []);
 
   const setDeafult = () => {
-    console.log("call");
     const { id, title, description, dueDate, status } = location.state?.task;
     setTask({ id, title, description, dueDate, status });
   };
