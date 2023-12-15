@@ -3,20 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, editTask } from "../../redux/actions";
 import "./TaskForm.css";
 import { useLocation, useNavigate } from "react-router-dom";
-
-type task = {
-  title: string;
-  description: string;
-  dueDate: string;
-  status: string;
-};
+import { Task } from "../../types/Task";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [task, setTask] = useState<task>({
+  const [task, setTask] = useState<Task>({
+    id: "",
     title: "",
     description: "",
     dueDate: "",
@@ -24,18 +19,25 @@ const TaskForm = () => {
   });
 
   useEffect(() => {
-    location.state && setDeafult();
+    location.state?.task && setDeafult();
   }, []);
 
   const setDeafult = () => {
-    const { title, description, dueDate, status } = location.state;
-    setTask({ title, description, dueDate, status });
+    console.log("call");
+    const { id, title, description, dueDate, status } = location.state?.task;
+    setTask({ id, title, description, dueDate, status });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task.title && task.description && task.dueDate) {
-      setTask({ title: "", description: "", dueDate: "", status: "pending" });
+      setTask({
+        id: "",
+        title: "",
+        description: "",
+        dueDate: "",
+        status: "pending",
+      });
 
       const updatedTask = { ...task, id: Date.now() };
       const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -56,8 +58,7 @@ const TaskForm = () => {
 
   const updateTask = (e) => {
     e.preventDefault();
-    const taskIdToUpdate = location.state.id;
-
+    const taskIdToUpdate = location.state.task.id;
     if (task.title && task.description && task.dueDate) {
       const updatedTask = {
         id: taskIdToUpdate,
@@ -66,12 +67,10 @@ const TaskForm = () => {
         dueDate: task.dueDate,
         status: task.status,
       };
-
       const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
       const updatedTasks = storedTasks.map((storedTask) =>
         storedTask.id === taskIdToUpdate ? updatedTask : storedTask
       );
-
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       dispatch(editTask(taskIdToUpdate, updatedTask));
       navigate(-1);
@@ -80,10 +79,12 @@ const TaskForm = () => {
     }
   };
 
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <div className="form-container">
-      <h2>{location.state ? "Update Task" : "Add New Task"}</h2>
-      <form onSubmit={location.state ? updateTask : handleSubmit}>
+      <h2>{location?.state?.task ? "Update Task" : "Add New Task"}</h2>
+      <form onSubmit={location?.state?.task ? updateTask : handleSubmit}>
         <label>
           Title:
           <input
@@ -107,6 +108,7 @@ const TaskForm = () => {
           <input
             type="date"
             name="dueDate"
+            min={today}
             value={task.dueDate}
             onChange={handleChange}
           />
@@ -118,7 +120,7 @@ const TaskForm = () => {
             <option value="completed">Completed</option>
           </select>
         </label>
-        {location.state ? (
+        {location.state?.task ? (
           <button type="submit">Update Task</button>
         ) : (
           <button type="submit">Add Task</button>

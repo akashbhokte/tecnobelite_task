@@ -1,92 +1,139 @@
-/* TaskList.css */
 
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
+.card-container {
+  width: 420px;
+  margin-block: 10px;
 }
 
-.custom-table th,
-.custom-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.card-date-container {
+  width: 100px;
+  box-shadow: 2px -2px 4px #F2F1EB;
+  border-radius: 8px 8px 0 0;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #fcc25f;
+  color: white;
 }
 
-.custom-table th {
-  background-color: #f2f2f2;
+.date-text {
+  font-size: 14px;
   text-align: center;
+  font-weight: 500;
 }
 
-.custom-table th:not(:last-child),
-.custom-table td:not(:last-child) {
-  border-right: 1px solid #ddd; /* Add border on the right for all cells except the last in each row */
+.card {
+  height: 60px; 
+  /* width: 400px; */
+  box-shadow: -2px 8px 8px lightgray;
+  border-radius: 0px 10px 10px 10px;
+  border-bottom: 10px solid #FFB534;
+  padding-inline: 10px;
+  padding-block: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 9999;
+  bottom: 10px;
 }
 
-.custom-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+.header-container {
+  display: flex;
+  height: 35px;
+  align-items: center;
 }
 
-.custom-table tbody tr:hover {
-  background-color: #e1e1e1;
+.icons-container {
+  display: flex;
+  width: 25%;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.add-button {
-  padding: 12px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-.delete-button {
-  padding: 10px 20px;
-  background-color: red;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  
-}
-.delete-button:hover{
-  background-color: rgb(186, 10, 10);
-}
-.status-button {
-  padding: 10px 20px;
-  background-color: rgb(40, 166, 46);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.status-button:hover{
+.edit-btn:hover {
+  color: white;
+  border-radius: 50px;
   background-color: green;
+  padding: 4px;
+  box-shadow: 2px 2px 4px grey;
 }
 
-.edit-button {
-  padding: 10px 20px;
-  background-color: rgb(177, 235, 135);
-  color: #fff;
-  border: none;
+.delete-btn:hover {
+  color: white;
+  border-radius: 50px;
+  background-color: red;
+  padding: 4px;
+  box-shadow: 2px 2px 4px grey;
+}
+
+.title-container {
+  width: 75%;
+}
+
+h3 {
+  margin: 0;
+}
+
+.description-container {
+  display: flex;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 600;
+  color: grey;
+  width: 80%;
+}
+
+.task-status {
+  font-size: 15px;
+  color: orange;
+  font-weight: 600;
+  width: 20%;
+}
+.select-container {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.select-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+
+
+
+
+
+.sort-by-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-by-container label {
+  margin-right: 10px;
+}
+
+.sorting-options {
+  display: flex;
+  gap: 10px;
+}
+
+.sort-option {
+  padding: 8px 12px;
+  border: 1px solid orange;
   border-radius: 4px;
   cursor: pointer;
 }
-.edit-button:hover{
-  background-color: rgb(192, 202, 9);
-}
 
-.add-button:hover {
-  background-color: #0056b3;
-}
-
-/* Media query for smaller screens */
-@media screen and (max-width: 768px) {
-  .custom-table th,
-  .custom-table td {
-    padding: 8px;
-  }
-
-  .add-button {
-    padding: 10px 16px;
-  }
+.sort-option.active {
+  background-color: orange;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
