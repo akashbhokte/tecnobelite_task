@@ -96,8 +96,7 @@ const TaskForm = () => {
         </label>
         <label>
           Description:
-          <input
-            type="text"
+          <textarea
             name="description"
             value={task.description}
             onChange={handleChange}

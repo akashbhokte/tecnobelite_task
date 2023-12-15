@@ -11,15 +11,7 @@ type state = {
 };
 
 const initialState = {
-  tasks: [
-    // {
-    //   id: "",
-    //   title: "",
-    //   description: "",
-    //   dueDate: "",
-    //   status: "",
-    // },
-  ],
+  tasks: [],
 };
 
 const reducer = (state = initialState, action) => {

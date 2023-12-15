@@ -14,7 +14,7 @@
     margin-bottom: 10px;
   }
   
-  .form-container input,
+  .form-container input,textarea,
   .form-container select {
     width: calc(100% - 20px);
     padding: 8px;

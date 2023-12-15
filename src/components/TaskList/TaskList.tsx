@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addTask,
-  deleteTask,
-  resetTasks,
-  toggleTaskStatus,
-} from "../../redux/actions";
-import "./TaskList.css";
+import { useEffect, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+import { addTask, deleteTask, resetTasks } from "../../redux/actions";
+import "./TaskList.css";
+import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { Task } from "../../types/Task";
-import { FaSortUp, FaSortDown } from "react-icons/fa";
+
+import { FaLongArrowAltUp, FaLongArrowAltDown } from "react-icons/fa";
 
 const TaskList = () => {
   const tasks = useSelector((state: any) => state.reducer.tasks);
@@ -74,93 +71,67 @@ const TaskList = () => {
     }
   });
 
-  const getSortIcon = (sortKey) => {
+  const getSortIcon = (sortKey: string) => {
     if (sortBy === sortKey) {
-      return sortOrder === "desc" ? <FaSortUp /> : <FaSortDown />;
+      return sortOrder === "desc" ? (
+        <FaLongArrowAltUp />
+      ) : (
+        <FaLongArrowAltDown />
+      );
     }
     return null;
   };
 
   return (
-    <div>
-      <h2>Task List</h2>
-
-      <div className="sort-by-container">
-        <label>Sort By:</label>
-        <div className="sorting-options">
-          <div
-            onClick={() => handleSortChange("title")}
-            className={`sort-option ${sortBy === "title" ? "active" : ""}`}
-          >
-            Title {getSortIcon("title")}
-          </div>
-          <div
-            onClick={() => handleSortChange("dueDate")}
-            className={`sort-option ${sortBy === "dueDate" ? "active" : ""}`}
-          >
-            Due Date {getSortIcon("dueDate")}
-          </div>
-          <div
-            onClick={() => handleSortChange("status")}
-            className={`sort-option ${sortBy === "status" ? "active" : ""}`}
-          >
-            Status {getSortIcon("status")}
-          </div>
-        </div>
+    <div className="main-container">
+      <div className="list-header">
+        <h2>Task List</h2>
+        <Link to={{ pathname: "/add" }} className="add-button">
+          <IoMdAdd color="white" />
+        </Link>
       </div>
 
-      {/* <table className="custom-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.id}</td>
-              <td>{task.title}</td>
-              <td>{task.description}</td>
-              <td>{task.dueDate}</td>
-              <td>{task.status}</td>
-              <td>
-                <button
-                  onClick={() => {
-                    removeTaskFromLocalStorage(task.id);
-                    dispatch(deleteTask(task.id));
-                  }}
-                >
-                  Delete
-                </button>
-                <button>
-                  <Link to={{ pathname: "/add" }} state={task}>
-                    Edit
-                  </Link>
-                </button>
-                <button onClick={() => dispatch(toggleTaskStatus(task.id))}>
-                  {task.status === "pending"
-                    ? "Mark Completed"
-                    : "Mark Pending"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
-
-      <div style={{ padding: 10 }}>
+      <div className="body-container">
+        <div className="sort-by-container">
+          <label>Sort By:</label>
+          <div className="sorting-options">
+            <div
+              onClick={() => handleSortChange("title")}
+              className={`sort-option ${sortBy === "title" ? "active" : ""}`}
+            >
+              Title {getSortIcon("title")}
+            </div>
+            <div
+              onClick={() => handleSortChange("dueDate")}
+              className={`sort-option ${sortBy === "dueDate" ? "active" : ""}`}
+            >
+              Due Date {getSortIcon("dueDate")}
+            </div>
+            <div
+              onClick={() => handleSortChange("status")}
+              className={`sort-option ${sortBy === "status" ? "active" : ""}`}
+            >
+              Status {getSortIcon("status")}
+            </div>
+          </div>
+        </div>
         {sortedTasks.map((task: Task) => {
           return (
             <div className="card-container" key={task.id}>
-              <div className="card-date-container">
+              <div
+                className={
+                  task.status == "completed"
+                    ? "complete-card-date-container"
+                    : "card-date-container"
+                }
+              >
                 <span className="date-text">{task.dueDate}</span>
               </div>
-              <div className="card">
+              <div
+                className={
+                  task.status == "completed" ? "complete-card" : "card"
+                }
+              >
                 <div className="header-container">
                   <div className="title-container">
                     <h3>{task.title}</h3>
@@ -183,7 +154,15 @@ const TaskList = () => {
                 </div>
                 <div className="description-container">
                   <span className="description">{task.description}</span>
-                  <span className="task-status">{task.status}</span>
+                  <span
+                    className={
+                      task.status == "completed"
+                        ? "complete-task-status"
+                        : "task-status"
+                    }
+                  >
+                    {task.status}
+                  </span>
                 </div>
                 {/* <Link to={{ pathname: "/Form" }}>{li.name}</Link> */}
 
@@ -193,9 +172,6 @@ const TaskList = () => {
           );
         })}
       </div>
-      <button className="add-button" type="submit">
-        <Link to={{ pathname: "/add" }}>Add Task</Link>
-      </button>
     </div>
   );
 };

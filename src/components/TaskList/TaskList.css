@@ -1,7 +1,70 @@
 
+.main-container {
+  margin: 0 auto;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.sort-by-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-by-container label {
+  margin-right: 10px;
+}
+
+.sorting-options {
+  display: flex;
+  gap: 10px;
+}
+
+.sort-option {
+  padding: 8px 12px;
+  border: 1px solid orange;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 90px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.sort-option.active {
+  background-color: orange;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+
+
+
+
+
+
 .card-container {
   width: 420px;
   margin-block: 10px;
+  animation-name: cardAnim;
+  animation-duration: 1s;
+  position: relative;
+}
+
+@keyframes cardAnim {
+  0% {
+    right: -100px;
+    opacity: 0;
+  }
+
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
 }
 
 .card-date-container {
@@ -14,6 +77,16 @@
   background-color: #fcc25f;
   color: white;
 }
+.complete-card-date-container {
+  width: 100px;
+  box-shadow: 2px -2px 4px #F2F1EB;
+  border-radius: 8px 8px 0 0;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  background-color: green;
+  color: white;
+}
 
 .date-text {
   font-size: 14px;
@@ -22,11 +95,25 @@
 }
 
 .card {
-  height: 60px; 
+  height: 60px;
   /* width: 400px; */
   box-shadow: -2px 8px 8px lightgray;
   border-radius: 0px 10px 10px 10px;
   border-bottom: 10px solid #FFB534;
+  padding-inline: 10px;
+  padding-block: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 9999;
+  bottom: 10px;
+}
+.complete-card {
+  height: 60px;
+  /* width: 400px; */
+  box-shadow: -2px 8px 8px lightgray;
+  border-radius: 0px 10px 10px 10px;
+  border-bottom: 10px solid green;
   padding-inline: 10px;
   padding-block: 8px;
   display: flex;
@@ -90,50 +177,30 @@ h3 {
   font-weight: 600;
   width: 20%;
 }
-.select-container {
-  width: 200px;
-  margin-bottom: 20px;
+.complete-task-status {
+  font-size: 15px;
+  color: green;
+  font-weight: 600;
+  width: 20%;
 }
 
-.select-container select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  font-size: 16px;
-}
-
-
-
-
-
-
-.sort-by-container {
+.list-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
 }
 
-.sort-by-container label {
-  margin-right: 10px;
-}
-
-.sorting-options {
+.body-container {
   display: flex;
-  gap: 10px;
-}
-
-.sort-option {
-  padding: 8px 12px;
-  border: 1px solid orange;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.sort-option.active {
-  background-color: orange;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.add-button {
   display: flex;
+  padding: 4px;
+  border-radius: 50px;
+  box-shadow: 0 1px 10px lightgrey;
+  background-color: #0056b3;
 }

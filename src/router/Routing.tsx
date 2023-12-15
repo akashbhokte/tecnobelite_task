@@ -1,7 +1,6 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TaskList from "../components/TaskList/TaskList";
 import TaskForm from "../components/TaskForm/TaskForm";
+import TaskList from "../components/TaskList/TaskList";
 
 const Routing = () => {
   return (
