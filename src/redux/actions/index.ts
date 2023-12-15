@@ -18,3 +18,7 @@ export const toggleTaskStatus = (taskId) => ({
   type: "TOGGLE_TASK_STATUS",
   payload: taskId,
 });
+
+export const resetTasks = () => ({
+  type: "RESET_TASKS",
+});

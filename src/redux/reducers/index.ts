@@ -10,23 +10,24 @@ type state = {
   ];
 };
 
-const initialState: state = {
+const initialState = {
   tasks: [
-    {
-      id: "",
-      title: "",
-      description: "",
-      dueDate: "",
-      status: "",
-    },
+    // {
+    //   id: "",
+    //   title: "",
+    //   description: "",
+    //   dueDate: "",
+    //   status: "",
+    // },
   ],
 };
 
 const reducer = (state = initialState, action) => {
+  console.log("action :", action);
+
   switch (action.type) {
     case "ADD_TASK":
       return {
-        ...state,
         tasks: [...state.tasks, action.payload],
       };
     case "EDIT_TASK":
@@ -42,6 +43,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
+      };
+    case "RESET_TASKS":
+      return {
+        ...state,
+        tasks: [], // Reset tasks to an empty array or your initial state
       };
     case "TOGGLE_TASK_STATUS":
       return {

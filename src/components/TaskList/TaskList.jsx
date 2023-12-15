@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTask, toggleTaskStatus } from "../../redux/actions";
+import {
+  addTask,
+  deleteTask,
+  resetTasks,
+  toggleTaskStatus,
+} from "../../redux/actions";
 import "./TaskList.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,19 +17,26 @@ const TaskList = () => {
   const [taskList, setTaskList] = useState([]);
 
   useEffect(() => {
+    dispatch(resetTasks());
     getTaskList();
-  }, [tasks]);
+  }, []);
 
   const getTaskList = () => {
     const list = JSON.parse(localStorage.getItem("tasks"));
-    setTaskList(list);
+    // dispatch(addTask(list));
+
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    console.log("storedTasks", storedTasks, typeof storedTasks);
+
+    storedTasks.map((task) => dispatch(addTask(task)));
+
+    setTaskList(tasks);
+    // localStorage.removeItem("tasks");
   };
 
   const removeTaskFromLocalStorage = (taskIdToRemove) => {
-    // Retrieve tasks array from localStorage
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // Find the index of the task with taskIdToRemove
     const indexToRemove = storedTasks.findIndex(
       (task) => task.id === taskIdToRemove
     );
@@ -42,6 +54,8 @@ const TaskList = () => {
     }
   };
 
+  console.log("tasks", tasks);
+
   return (
     <div>
       <h2>Task List</h2>
@@ -58,7 +72,7 @@ const TaskList = () => {
           </tr>
         </thead>
         <tbody>
-          {taskList.map((task) => (
+          {tasks.map((task) => (
             <tr key={task.id}>
               <td>{task.id}</td>
               <td>{task.title}</td>
@@ -68,18 +82,14 @@ const TaskList = () => {
               <td>
                 <button
                   onClick={() => {
-                    dispatch(deleteTask(task.id));
                     removeTaskFromLocalStorage(task.id);
+                    dispatch(deleteTask(task.id));
                   }}
                 >
                   Delete
                 </button>
-                <button
-                // onClick={() => {
-                //   navigate("/add", { type: "edit" });
-                // }}
-                >
-                  <Link to={{ pathname: "/add", state: { user: "user" } }}>
+                <button>
+                  <Link to={{ pathname: "/add" }} state={task}>
                     Edit
                   </Link>
                 </button>
@@ -94,7 +104,7 @@ const TaskList = () => {
         </tbody>
       </table>
       <button className="add-button" type="submit">
-        Add Task
+        <Link to={{ pathname: "/add" }}>Add Task</Link>
       </button>
     </div>
   );
